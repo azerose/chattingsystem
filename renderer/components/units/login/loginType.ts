@@ -9,7 +9,7 @@ export interface ILoginContainerProps {
   formState: FormState<IFormData>;
   handleSubmit: UseFormHandleSubmit<IFormData>;
   onClickMoveToPage: (path: String) => () => void;
-  onClickLogin: () => void;
+  onClickLogin: (data: IFormData) => void;
 }
 
 export interface IFormData {
