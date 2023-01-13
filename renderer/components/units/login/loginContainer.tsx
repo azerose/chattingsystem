@@ -4,11 +4,19 @@ import { IFormData } from "./loginType";
 import useMoveToPage from "../../commons/hooks/useMoveToPage";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Auth } from "../../commons/firebase/firebase";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { LoginYup } from "./loginShema";
+import { app } from "electron";
 
 const LoginContainer = () => {
+  app;
+  console.log(app);
+
   const { onClickMoveToPage } = useMoveToPage();
 
-  const { register, formState, handleSubmit } = useForm<IFormData>();
+  const { register, formState, handleSubmit } = useForm<IFormData>({
+    resolver: yupResolver(LoginYup),
+  });
 
   const onClickLogin = async (data: IFormData) => {
     const { user } = await signInWithEmailAndPassword(
