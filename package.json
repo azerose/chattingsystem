@@ -17,7 +17,9 @@
     "@hookform/resolvers": "^2.9.10",
     "electron-serve": "^1.1.0",
     "electron-store": "^8.1.0",
-    "react-hook-form": "^7.41.5"
+    "react-hook-form": "^7.41.5",
+    "recoil": "^0.7.6",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@ant-design/icons": "^4.7.0",
