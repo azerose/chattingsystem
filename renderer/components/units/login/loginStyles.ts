@@ -10,7 +10,7 @@ export const MainWrapper = styled.div`
   width: 100%;
 `;
 
-export const LoginMainWrapper = styled.form`
+export const LoginMainWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -43,7 +43,7 @@ export const LogoStyle = styled.div`
   font-size: 50px;
 `;
 
-export const LoginWrapper = styled.div`
+export const LoginWrapper = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
