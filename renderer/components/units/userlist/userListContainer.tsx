@@ -1,37 +1,44 @@
 import { collection, query } from "firebase/firestore/lite";
 import { onSnapshot } from "firebase/firestore";
-import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { MouseEvent, useEffect, useState } from "react";
 import { AuthAdmin, Store } from "../../commons/firebase/firebase";
-import { accessTokenState } from "../../commons/store";
-import UserListPresenter from "./useListPresenter";
-
+import UserListPresenter from "./userListPresenter";
 const UserListContainer = () => {
   const [list, setList] = useState<any>([]);
-  const [chat, setChat] = useState([]);
+  const [makeChat, setMakeChat] = useState(false);
+  const [groupMem, setGroupMem] = useState([]);
   const [userName, setUserName] = useState("");
-  const [accessToken] = useRecoilState(accessTokenState);
+  const [chatId, setChatId] = useState("");
 
   useEffect(() => {
-    const userList = AuthAdmin.listUsers()
+    AuthAdmin.listUsers()
       .then((res) => {
-        setList(res.users.map((user: any) => user.toJSON().email));
+        setList(res.users.map((user: any) => user.toJSON()));
       })
       .catch(() => {});
+    const q = query(collection(Store, String(localStorage.getItem("user"))));
 
-    // const user = query(collection(Store, accessToken));
-    // onSnapshot(user, (snapshot) => {
-    //   const result = snapshot.docs.map((doc) => ({
-    //     id: doc.id,
-    //     ...doc.data(),
-    //   }));
-    //   setChat(result);
-    // });
-    setUserName(accessToken);
+    setUserName(localStorage.getItem("user"));
   }, []);
-  console.log(list);
 
-  return <UserListPresenter />;
+  const onClickMakeChat = (e: MouseEvent<HTMLDivElement>) => {
+    const id = e.currentTarget.id;
+    if (id.includes(",")) {
+      const result = id.split(",");
+      setGroupMem(result);
+    } else {
+      setChatId(id);
+    }
+    setMakeChat(true);
+  };
+
+  return (
+    <UserListPresenter
+      list={list}
+      userName={userName}
+      onClickMakeChat={onClickMakeChat}
+    />
+  );
 };
 
 export default UserListContainer;

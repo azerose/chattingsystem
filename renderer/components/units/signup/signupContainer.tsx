@@ -24,9 +24,6 @@ const SignUpContainer = () => {
         data?.email,
         data.password
       );
-      await setDoc(doc(Store, "user", result.user.uid), {
-        email: String(data.email),
-      });
       await updateProfile(result.user, {
         displayName: data?.email,
       });
